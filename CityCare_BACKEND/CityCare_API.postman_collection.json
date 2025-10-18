@@ -1,0 +1,672 @@
+{
+    "info": {
+        "name": "CityCare API",
+        "description": "Complete API collection for CityCare Backend",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "item": [
+                {
+                    "name": "Register User",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"+212612345678\",\n  \"role\": \"ROLE_USER\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/auth/register",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "register"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Login",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/auth/login",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "login"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Current User",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/auth/me",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "me"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Profile",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"name\": \"John Updated\",\n  \"phone\": \"+212612345679\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/auth/profile",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "profile"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Password",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"currentPassword\": \"password123\",\n  \"newPassword\": \"newpassword456\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/auth/password",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "auth",
+                                "password"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Reports",
+            "item": [
+                {
+                    "name": "Get All Reports",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/reports?page=1&limit=10",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "reports"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "10"
+                                },
+                                {
+                                    "key": "status",
+                                    "value": "OUVERT",
+                                    "disabled": true
+                                },
+                                {
+                                    "key": "category",
+                                    "value": "NIDS_DE_POULE",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Single Report",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/reports/:id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "reports",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "report_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Create Report",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "key": "title",
+                                    "value": "Nid de poule dangereux",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "description",
+                                    "value": "Un grand nid de poule qui endommage les véhicules",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "category",
+                                    "value": "NIDS_DE_POULE",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "latitude",
+                                    "value": "33.5731",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "longitude",
+                                    "value": "-7.5898",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "address",
+                                    "value": "Avenue Mohammed V",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "city",
+                                    "value": "Casablanca",
+                                    "type": "text"
+                                },
+                                {
+                                    "key": "image",
+                                    "type": "file",
+                                    "src": "path/to/your/image.jpg"
+                                }
+                            ]
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/reports",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "reports"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update Report",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"status\": \"EN_COURS\",\n  \"statusComment\": \"Nous avons pris en charge votre signalement\",\n  \"priority\": \"HAUTE\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/reports/:id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "reports",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "report_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete Report",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/reports/:id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "reports",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "report_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Add Comment",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"text\": \"Nous avons envoyé une équipe pour évaluer le problème.\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/reports/:id/comment",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "reports",
+                                ":id",
+                                "comment"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "report_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Toggle Upvote",
+                    "request": {
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/reports/:id/upvote",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "reports",
+                                ":id",
+                                "upvote"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "report_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get Report Statistics",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/reports/stats",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "reports",
+                                "stats"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Users (Admin)",
+            "item": [
+                {
+                    "name": "Get All Users",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/users?page=1&limit=20",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users"
+                            ],
+                            "query": [
+                                {
+                                    "key": "page",
+                                    "value": "1"
+                                },
+                                {
+                                    "key": "limit",
+                                    "value": "20"
+                                },
+                                {
+                                    "key": "role",
+                                    "value": "ROLE_USER",
+                                    "disabled": true
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get User by ID",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/users/:id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "user_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Update User Role",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            },
+                            {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n  \"role\": \"ROLE_AGENT\"\n}"
+                        },
+                        "url": {
+                            "raw": "{{base_url}}/api/users/:id/role",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                ":id",
+                                "role"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "user_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Toggle User Status",
+                    "request": {
+                        "method": "PUT",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/users/:id/status",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                ":id",
+                                "status"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "user_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Delete User",
+                    "request": {
+                        "method": "DELETE",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/users/:id",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                ":id"
+                            ],
+                            "variable": [
+                                {
+                                    "key": "id",
+                                    "value": "user_id_here"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "name": "Get User Statistics",
+                    "request": {
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Authorization",
+                                "value": "Bearer {{token}}"
+                            }
+                        ],
+                        "url": {
+                            "raw": "{{base_url}}/api/users/stats",
+                            "host": [
+                                "{{base_url}}"
+                            ],
+                            "path": [
+                                "api",
+                                "users",
+                                "stats"
+                            ]
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Health Check",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/",
+                    "host": [
+                        "{{base_url}}"
+                    ],
+                    "path": [
+                        ""
+                    ]
+                }
+            }
+        }
+    ],
+    "variable": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:5000",
+            "type": "string"
+        },
+        {
+            "key": "token",
+            "value": "your_jwt_token_here",
+            "type": "string"
+        }
+    ]
+}
