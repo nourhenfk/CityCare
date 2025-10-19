@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Carte des signalements</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="centerOnUserLocation()">
+        <ion-icon slot="icon-only" name="locate-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <!-- Filtres -->
+  <ion-toolbar>
+    <ion-row>
+      <ion-col size="6">
+        <ion-select [(ngModel)]="selectedStatus" (ionChange)="onFilterChange()" interface="popover"
+          placeholder="Statut">
+          <ion-select-option *ngFor="let status of statusOptions" [value]="status.value">
+            {{ status.label }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+      <ion-col size="6">
+        <ion-select [(ngModel)]="selectedCategory" (ionChange)="onFilterChange()" interface="popover"
+          placeholder="Catégorie">
+          <ion-select-option *ngFor="let cat of categories" [value]="cat.value">
+            {{ cat.label }}
+          </ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-spinner *ngIf="loading" name="crescent" class="spinner-center"></ion-spinner>
+
+  <ion-card *ngIf="error">
+    <ion-card-content color="danger">{{ error }}</ion-card-content>
+  </ion-card>
+
+  <!-- Carte Leaflet -->
+  <div id="map" style="height: 100%; width: 100%;"></div>
+
+  <!-- Légende -->
+  <div class="legend">
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #dc2626;"></div>
+      <span>Ouvert</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #ea580c;"></div>
+      <span>En cours</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #16a34a;"></div>
+      <span>Résolu</span>
+    </div>
+    <div class="legend-item">
+      <div class="legend-color" style="background-color: #6b7280;"></div>
+      <span>Rejeté</span>
+    </div>
+  </div>
+</ion-content>

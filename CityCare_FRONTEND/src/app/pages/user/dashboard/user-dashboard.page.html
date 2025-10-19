@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Mon tableau de bord</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="goToMap()">
+                <ion-icon slot="icon-only" name="map-outline"></ion-icon>
+            </ion-button>
+            <ion-button (click)="onLogout()">
+                <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="loadData()">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-button expand="block" color="secondary" style="margin:16px;" (click)="goToCreateReport()">
+        <ion-icon slot="start" name="add-circle-outline"></ion-icon>
+        Nouveau signalement
+    </ion-button>
+
+    <ion-spinner *ngIf="loading" name="crescent" class="spinner-center"></ion-spinner>
+    <ion-card *ngIf="error">
+        <ion-card-content color="danger">{{ error }}</ion-card-content>
+    </ion-card>
+
+    <ion-list *ngIf="!loading && !error">
+        <ion-list-header>
+            <ion-label>Mes derniers signalements</ion-label>
+        </ion-list-header>
+        <ion-item *ngFor="let r of reports" button (click)="viewReportDetails(r._id)">
+            <ion-avatar slot="start" *ngIf="r.imageUrl">
+                <img [src]="r.imageUrl" alt="image" />
+            </ion-avatar>
+            <ion-label>
+                <h3>{{ r.title }}</h3>
+                <p>{{ r.category }} • {{ r.status }} • {{ r.createdAt | date:'short' }}</p>
+            </ion-label>
+            <ion-badge [color]="r.status === 'RESOLU' ? 'success' : r.status === 'EN_COURS' ? 'warning' : 'medium'">{{
+                r.status }}</ion-badge>
+            <ion-icon slot="end" name="chevron-forward-outline"></ion-icon>
+        </ion-item>
+    </ion-list>
+</ion-content>

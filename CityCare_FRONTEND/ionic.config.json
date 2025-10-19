@@ -1,0 +1,7 @@
+{
+  "name": "CityCare_FRONTEND",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

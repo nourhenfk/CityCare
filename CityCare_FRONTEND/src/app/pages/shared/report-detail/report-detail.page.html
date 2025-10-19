@@ -1,0 +1,143 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Détails du signalement</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-spinner *ngIf="loading" name="crescent" class="spinner-center"></ion-spinner>
+
+  <ion-card *ngIf="error">
+    <ion-card-content color="danger">{{ error }}</ion-card-content>
+  </ion-card>
+
+  <div *ngIf="!loading && report">
+    <!-- Image principale -->
+    <ion-card>
+      <img [src]="report.imageUrl" [alt]="report.title" />
+      <ion-card-header *ngIf="report.imageUrl">
+        <ion-card-subtitle>Photo du problème</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <!-- Image de résolution (si disponible) -->
+    <ion-card *ngIf="report.resolutionImageUrl">
+      <img [src]="report.resolutionImageUrl" alt="Résolution" />
+      <ion-card-header>
+        <ion-card-subtitle>Photo de résolution</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+
+    <!-- Informations principales -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>
+          <ion-badge [color]="getStatusColor(report.status)">{{ getStatusLabel(report.status) }}</ion-badge>
+          <ion-badge color="medium" style="margin-left: 8px;">{{ report.category }}</ion-badge>
+        </ion-card-subtitle>
+        <ion-card-title>{{ report.title }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Description:</strong></p>
+        <p>{{ report.description }}</p>
+        <hr />
+        <p><strong>Signalé par:</strong> {{ report.createdBy?.name || 'Inconnu' }}</p>
+        <p><strong>Date:</strong> {{ report.createdAt | date:'medium' }}</p>
+        <p *ngIf="report.location.address"><strong>Adresse:</strong> {{ report.location.address }}</p>
+        <p *ngIf="report.location.city"><strong>Ville:</strong> {{ report.location.city }}</p>
+        <p><strong>Coordonnées:</strong> {{ report.location.coordinates.latitude }}, {{
+          report.location.coordinates.longitude }}</p>
+        <p *ngIf="report.upvotes && report.upvotes > 0"><strong>Soutiens:</strong> {{ report.upvotes }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Historique de statut -->
+    <ion-card *ngIf="report.statusHistory && report.statusHistory.length > 0">
+      <ion-card-header>
+        <ion-card-title>Historique</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let history of report.statusHistory">
+            <ion-label>
+              <h3><ion-badge [color]="getStatusColor(history.status)">{{ getStatusLabel(history.status) }}</ion-badge>
+              </h3>
+              <p>{{ history.changedAt | date:'short' }}</p>
+              <p *ngIf="history.comment">{{ history.comment }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Commentaires -->
+    <ion-card *ngIf="report.comments && report.comments.length > 0">
+      <ion-card-header>
+        <ion-card-title>Commentaires</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let comment of report.comments">
+            <ion-avatar slot="start" *ngIf="comment.user?.avatar">
+              <img [src]="comment.user.avatar" alt="avatar" />
+            </ion-avatar>
+            <ion-label>
+              <h3>{{ comment.user?.name || 'Utilisateur' }}</h3>
+              <p>{{ comment.text }}</p>
+              <p><small>{{ comment.createdAt | date:'short' }}</small></p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Actions admin -->
+    <ion-card *ngIf="isAdmin">
+      <ion-card-header>
+        <ion-card-title>Actions administrateur</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-button expand="block" (click)="toggleStatusForm()" [fill]="showStatusForm ? 'solid' : 'outline'">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          Modifier le statut
+        </ion-button>
+
+        <div *ngIf="showStatusForm" style="margin-top: 16px;">
+          <ion-list>
+            <ion-item>
+              <ion-label position="stacked">Nouveau statut</ion-label>
+              <ion-select [(ngModel)]="selectedStatus">
+                <ion-select-option *ngFor="let status of statusOptions" [value]="status.value">
+                  {{ status.label }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="stacked">Commentaire (optionnel)</ion-label>
+              <ion-textarea [(ngModel)]="statusComment" rows="3"></ion-textarea>
+            </ion-item>
+
+            <ion-item *ngIf="selectedStatus === 'RESOLU'">
+              <ion-label position="stacked">Photo de résolution (optionnel)</ion-label>
+              <input type="file" (change)="onResolutionImageChange($event)" accept="image/*" />
+            </ion-item>
+          </ion-list>
+
+          <ion-button expand="block" color="primary" (click)="updateStatus()">
+            <ion-icon slot="start" name="save-outline"></ion-icon>
+            Enregistrer
+          </ion-button>
+          <ion-button expand="block" fill="clear" (click)="toggleStatusForm()">
+            Annuler
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

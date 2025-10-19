@@ -1,0 +1,395 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(var(--ion-color-primary-rgb), 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(var(--ion-color-primary-rgb), 0.6);
+  }
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100%;
+  padding: 20px;
+  animation: fadeInUp 0.6s ease-out;
+
+  .header-section {
+    text-align: center;
+    margin-bottom: 24px;
+    animation: slideInDown 0.5s ease-out;
+
+    h2 {
+      font-size: 24px;
+      font-weight: bold;
+      color: var(--ion-color-primary);
+      margin: 0;
+      animation: fadeInUp 0.7s ease-out 0.1s both;
+    }
+
+    p {
+      color: var(--ion-color-medium);
+      margin-top: 8px;
+      font-size: 14px;
+      animation: fadeInUp 0.7s ease-out 0.2s both;
+    }
+  }
+
+  form {
+    .input-wrapper {
+      animation: fadeInUp 0.6s ease-out both;
+
+      &:nth-child(1) { animation-delay: 0.3s; }
+      &:nth-child(2) { animation-delay: 0.4s; }
+      &:nth-child(3) { animation-delay: 0.5s; }
+      &:nth-child(4) { animation-delay: 0.6s; }
+      &:nth-child(5) { animation-delay: 0.7s; }
+    }
+
+    .input-item {
+      margin-bottom: 16px;
+      --border-radius: 12px;
+      --padding-start: 16px;
+      --inner-padding-end: 16px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid transparent;
+
+      &:focus-within {
+        animation: glow 1.5s ease-in-out infinite;
+        transform: translateY(-2px);
+        --box-shadow: 0 8px 16px rgba(var(--ion-color-primary-rgb), 0.15);
+      }
+
+      ion-icon {
+        color: var(--ion-color-primary);
+        margin-right: 12px;
+        transition: all 0.3s ease;
+      }
+
+      &:focus-within ion-icon {
+        transform: scale(1.1) rotate(5deg);
+      }
+
+      .password-toggle {
+        cursor: pointer;
+        color: var(--ion-color-medium);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+          color: var(--ion-color-primary);
+          transform: scale(1.15);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+
+    .error-message {
+      font-size: 12px;
+      margin: 4px 0 12px 16px;
+      animation: fadeInUp 0.3s ease-out;
+      color: var(--ion-color-danger);
+    }
+
+    .register-button {
+      margin-top: 24px;
+      --border-radius: 12px;
+      height: 48px;
+      font-weight: bold;
+      animation: fadeInUp 0.6s ease-out 0.8s both;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent
+        );
+        transition: left 0.5s;
+      }
+
+      &:hover::before {
+        left: 100%;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        --box-shadow: 0 12px 24px rgba(var(--ion-color-primary-rgb), 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+
+      ion-spinner {
+        margin-right: 8px;
+        animation: pulse 1s ease-in-out infinite;
+      }
+    }
+  }
+
+  .login-link {
+    text-align: center;
+    margin-top: 24px;
+    animation: fadeInUp 0.6s ease-out 0.9s both;
+
+    p {
+      color: var(--ion-color-medium);
+      transition: all 0.3s ease;
+
+      a {
+        color: var(--ion-color-primary);
+        font-weight: bold;
+        cursor: pointer;
+        text-decoration: none;
+        position: relative;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background: var(--ion-color-primary);
+          transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        &:hover {
+          transform: translateY(-1px);
+
+          &::after {
+            width: 100%;
+          }
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .auth-container {
+    padding: 16px;
+
+    .logo-section {
+      margin-bottom: 32px;
+
+      .logo-icon {
+        font-size: 64px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+    }
+
+    form {
+      .login-button {
+        height: 44px;
+        font-size: 15px;
+      }
+    }
+  }
+}
+
+// Tablet and larger screens
+@media (min-width: 768px) {
+  .auth-container {
+    max-width: 450px;
+    margin: 0 auto;
+  }
+}
+
+// <CHANGE> Creative header animations and styles
+@keyframes headerGradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes titleGlowEffect {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(var(--ion-color-primary-rgb), 0.2);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(var(--ion-color-primary-rgb), 0.4);
+  }
+}
+
+@keyframes accentLineExpand {
+  0%, 100% {
+    width: 0;
+    opacity: 0;
+  }
+  50% {
+    width: 50px;
+    opacity: 1;
+  }
+}
+
+@keyframes floatingDot {
+  0%, 100% {
+    transform: translateY(0px);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-15px);
+    opacity: 0.7;
+  }
+}
+
+@keyframes backButtonHover {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+}
+
+ion-header {
+  ion-toolbar {
+    background: linear-gradient(135deg, var(--ion-color-primary) 0%, #0052cc 100%);
+    background-size: 200% 200%;
+    animation: headerGradientShift 6s ease infinite;
+    box-shadow: 0 4px 20px rgba(var(--ion-color-primary-rgb), 0.3);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+      pointer-events: none;
+    }
+
+    ion-buttons[slot="start"] {
+      ion-back-button {
+        --color: white;
+        --icon-font-size: 24px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+          animation: backButtonHover 0.6s ease-in-out;
+          filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+      }
+    }
+
+    ion-title {
+      color: white;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.5px;
+      animation: titleGlowEffect 3s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 3px;
+        background: white;
+        animation: accentLineExpand 2s ease-in-out infinite;
+        border-radius: 2px;
+      }
+    }
+
+    // Decorative floating dots
+    &::after {
+      content: '';
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      top: 15px;
+      right: 20px;
+      animation: floatingDot 4s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,30 @@
+.spinner-center {
+    display: block;
+    margin: 50px auto;
+}
+
+ion-card {
+    margin: 16px;
+}
+
+ion-card img {
+    width: 100%;
+    height: auto;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+ion-badge {
+    margin-right: 8px;
+}
+
+hr {
+    margin: 16px 0;
+    border: none;
+    border-top: 1px solid var(--ion-color-light);
+}
+
+ion-avatar {
+    width: 40px;
+    height: 40px;
+}

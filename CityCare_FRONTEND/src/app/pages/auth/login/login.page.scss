@@ -1,0 +1,604 @@
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
+    padding: 20px;
+
+    .logo-section {
+        text-align: center;
+        margin-bottom: 40px;
+
+        .logo-icon {
+            font-size: 80px;
+            color: var(--ion-color-primary);
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--ion-color-primary);
+            margin: 0;
+        }
+
+        p {
+            color: var(--ion-color-medium);
+            margin-top: 8px;
+        }
+    }
+
+    form {
+        margin-top: 20px;
+
+        .input-item {
+            margin-bottom: 16px;
+            --border-radius: 12px;
+            --padding-start: 16px;
+            --inner-padding-end: 16px;
+
+            ion-icon {
+                color: var(--ion-color-primary);
+                margin-right: 12px;
+            }
+
+            .password-toggle {
+                cursor: pointer;
+                color: var(--ion-color-medium);
+
+                &:hover {
+                    color: var(--ion-color-primary);
+                }
+            }
+        }
+
+        .error-message {
+            font-size: 12px;
+            margin: 4px 0 12px 16px;
+        }
+
+        .login-button {
+            margin-top: 24px;
+            --border-radius: 12px;
+            height: 48px;
+            font-weight: bold;
+
+            ion-spinner {
+                margin-right: 8px;
+            }
+        }
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 24px;
+
+        p {
+            color: var(--ion-color-medium);
+
+            a {
+                color: var(--ion-color-primary);
+                font-weight: bold;
+                cursor: pointer;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+// Responsive pour les petits écrans
+@media (max-width: 576px) {
+    .auth-container {
+        padding: 16px;
+
+        .logo-section {
+            margin-bottom: 32px;
+
+            .logo-icon {
+                font-size: 64px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+    }
+}
+
+// <CHANGE> Added comprehensive animation system and enhanced styling
+
+// Animation keyframes
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 5px rgba(var(--ion-color-primary-rgb), 0.3);
+    }
+
+    50% {
+        box-shadow: 0 0 15px rgba(var(--ion-color-primary-rgb), 0.6);
+    }
+}
+
+// Animation utility classes
+.fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0;
+
+    &.delay-1 {
+        animation-delay: 0.1s;
+    }
+
+    &.delay-2 {
+        animation-delay: 0.2s;
+    }
+
+    &.delay-3 {
+        animation-delay: 0.3s;
+    }
+
+    &.delay-4 {
+        animation-delay: 0.4s;
+    }
+
+    &.delay-5 {
+        animation-delay: 0.5s;
+    }
+}
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100%;
+    padding: 20px;
+
+    .logo-section {
+        text-align: center;
+        margin-bottom: 40px;
+
+        .logo-wrapper {
+            display: inline-block;
+            margin-bottom: 16px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .logo-icon {
+            // Support both img and ion-icon
+            width: 80px;
+            height: 80px;
+            font-size: 80px;
+            color: var(--ion-color-primary);
+            display: block;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+            &:hover {
+                transform: scale(1.1) rotate(5deg);
+                filter: drop-shadow(0 8px 16px rgba(var(--ion-color-primary-rgb), 0.3));
+            }
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--ion-color-primary);
+            margin: 0;
+            letter-spacing: -0.5px;
+            transition: all 0.3s ease;
+        }
+
+        p {
+            color: var(--ion-color-medium);
+            margin-top: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+    }
+
+    .form-container {
+        margin-top: 20px;
+    }
+
+    .input-wrapper {
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+    }
+
+    form {
+        .input-item {
+            margin-bottom: 0;
+            --border-radius: 12px;
+            --padding-start: 16px;
+            --inner-padding-end: 16px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid transparent;
+            background: rgba(var(--ion-color-primary-rgb), 0.05);
+
+            // <CHANGE> Enhanced focus and hover states with animations
+            &:focus-within {
+                border-color: var(--ion-color-primary);
+                background: rgba(var(--ion-color-primary-rgb), 0.08);
+                box-shadow: 0 4px 12px rgba(var(--ion-color-primary-rgb), 0.15);
+                transform: translateY(-2px);
+            }
+
+            &:hover {
+                background: rgba(var(--ion-color-primary-rgb), 0.07);
+            }
+
+            ion-icon {
+                color: var(--ion-color-primary);
+                margin-right: 12px;
+                transition: all 0.3s ease;
+                font-size: 20px;
+            }
+
+            .password-toggle {
+                cursor: pointer;
+                color: var(--ion-color-medium);
+                transition: all 0.3s ease;
+                font-size: 20px;
+
+                &:active {
+                    transform: scale(0.9);
+                }
+
+                &:hover {
+                    color: var(--ion-color-primary);
+                    transform: scale(1.1);
+                }
+            }
+        }
+
+        .error-message {
+            font-size: 12px;
+            margin: 8px 0 0 16px;
+            animation: slideInDown 0.3s ease-out;
+            color: var(--ion-color-danger);
+            font-weight: 500;
+        }
+
+        .error-alert {
+            display: block;
+            margin-bottom: 16px;
+            animation: slideInDown 0.3s ease-out;
+
+            .error-message {
+                margin: 0;
+                padding: 12px 16px;
+                background: rgba(var(--ion-color-danger-rgb), 0.1);
+                border-radius: 8px;
+                border-left: 4px solid var(--ion-color-danger);
+            }
+        }
+
+        .login-button {
+            margin-top: 32px;
+            --border-radius: 12px;
+            height: 48px;
+            font-weight: bold;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+
+            // <CHANGE> Added button animation effects
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: rgba(255, 255, 255, 0.2);
+                transition: left 0.5s ease;
+            }
+
+            &:hover:not([disabled]) {
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(var(--ion-color-primary-rgb), 0.3);
+
+                &::before {
+                    left: 100%;
+                }
+            }
+
+            &:active:not([disabled]) {
+                transform: translateY(0);
+            }
+
+            &[disabled] {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+
+            ion-spinner {
+                margin-right: 8px;
+                animation: spin 1s linear infinite;
+            }
+        }
+    }
+
+    .register-link {
+        text-align: center;
+        margin-top: 32px;
+        transition: all 0.3s ease;
+
+        p {
+            color: var(--ion-color-medium);
+            margin: 0;
+            font-size: 14px;
+
+            .register-link-text {
+                color: var(--ion-color-primary);
+                font-weight: 600;
+                cursor: pointer;
+                text-decoration: none;
+                transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+                position: relative;
+                display: inline-block;
+
+                // <CHANGE> Added underline animation effect
+                &::after {
+                    content: '';
+                    position: absolute;
+                    bottom: -2px;
+                    left: 0;
+                    width: 0;
+                    height: 2px;
+                    background: var(--ion-color-primary);
+                    transition: width 0.3s ease;
+                }
+
+                &:hover {
+                    transform: translateY(-2px);
+
+                    &::after {
+                        width: 100%;
+                    }
+                }
+
+                &:active {
+                    transform: translateY(0);
+                }
+            }
+        }
+    }
+}
+
+// Responsive pour les petits écrans
+@media (max-width: 576px) {
+    .auth-container {
+        padding: 16px;
+
+        .logo-section {
+            margin-bottom: 32px;
+
+            .logo-icon {
+                font-size: 64px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+        }
+
+        form {
+            .login-button {
+                height: 44px;
+                font-size: 15px;
+            }
+        }
+    }
+}
+
+// Tablet and larger screens
+@media (min-width: 768px) {
+    .auth-container {
+        max-width: 450px;
+        margin: 0 auto;
+    }
+}
+
+// <CHANGE> Creative header animations and styles
+@keyframes headerGradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes titleGlowEffect {
+
+    0%,
+    100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(var(--ion-color-primary-rgb), 0.2);
+    }
+
+    50% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(var(--ion-color-primary-rgb), 0.4);
+    }
+}
+
+@keyframes accentLineExpand {
+
+    0%,
+    100% {
+        width: 0;
+        opacity: 0;
+    }
+
+    50% {
+        width: 50px;
+        opacity: 1;
+    }
+}
+
+@keyframes floatingDot {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+        opacity: 0.2;
+    }
+
+    50% {
+        transform: translateY(-15px);
+        opacity: 0.7;
+    }
+}
+
+@keyframes backButtonHover {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-4px);
+    }
+}
+
+ion-header {
+    ion-toolbar {
+        background: linear-gradient(135deg, var(--ion-color-primary) 0%, #0052cc 100%);
+        background-size: 200% 200%;
+        animation: headerGradientShift 6s ease infinite;
+        box-shadow: 0 4px 20px rgba(var(--ion-color-primary-rgb), 0.3);
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        ion-buttons[slot="start"] {
+            ion-back-button {
+                --color: white;
+                --icon-font-size: 24px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+                &:hover {
+                    animation: backButtonHover 0.6s ease-in-out;
+                    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.5));
+                }
+
+                &:active {
+                    transform: scale(0.95);
+                }
+            }
+        }
+
+        ion-title {
+            color: white;
+            font-weight: 700;
+            font-size: 20px;
+            letter-spacing: 0.5px;
+            animation: titleGlowEffect 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 50%;
+                transform: translateX(-50%);
+                height: 3px;
+                background: white;
+                animation: accentLineExpand 2s ease-in-out infinite;
+                border-radius: 2px;
+            }
+        }
+
+        // Decorative floating dots
+        &::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            top: 15px;
+            right: 20px;
+            animation: floatingDot 4s ease-in-out infinite;
+        }
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

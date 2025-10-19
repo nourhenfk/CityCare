@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Créer un signalement</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="reportForm" (ngSubmit)="onSubmit()">
+        <ion-list>
+            <ion-item>
+                <ion-label position="stacked">Titre</ion-label>
+                <ion-input formControlName="title" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Description</ion-label>
+                <ion-textarea formControlName="description" required></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Catégorie</ion-label>
+                <ion-select formControlName="category" required>
+                    <ion-select-option *ngFor="let cat of categories" [value]="cat.value">{{ cat.label
+                        }}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Latitude</ion-label>
+                <ion-input type="number" formControlName="latitude" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Longitude</ion-label>
+                <ion-input type="number" formControlName="longitude" required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Adresse</ion-label>
+                <ion-input formControlName="address"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Ville</ion-label>
+                <ion-input formControlName="city"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="stacked">Photo</ion-label>
+                <input type="file" (change)="onFileChange($event)" accept="image/*" required />
+            </ion-item>
+        </ion-list>
+        <ion-button expand="block" type="submit" [disabled]="loading">Créer le signalement</ion-button>
+        <ion-spinner *ngIf="loading" name="crescent" class="spinner-center"></ion-spinner>
+        <ion-text color="danger" *ngIf="errorMessage">{{ errorMessage }}</ion-text>
+    </form>
+</ion-content>

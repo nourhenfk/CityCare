@@ -1,0 +1,150 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>Tableau de bord</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="goToMap()">
+                <ion-icon slot="icon-only" name="map-outline"></ion-icon>
+            </ion-button>
+            <ion-button (click)="onLogout()">
+                <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="loadData()">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="spinner-container">
+        <div class="spinner-wrapper">
+            <ion-spinner name="crescent" class="spinner-center"></ion-spinner>
+            <p class="loading-text">Chargement des données...</p>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <ion-card *ngIf="error" class="error-card">
+        <ion-card-content color="danger">
+            <ion-icon name="alert-circle-outline"></ion-icon>
+            {{ error }}
+        </ion-card-content>
+    </ion-card>
+
+    <!-- Dashboard Grid -->
+    <ion-grid *ngIf="!loading && !error" class="dashboard-grid">
+        <!-- Stats Cards Row -->
+        <ion-row class="stats-row">
+            <!-- Reports Card -->
+            <ion-col size="12" sizeMd="4" class="stat-col">
+                <ion-card class="stat-card reports-card">
+                    <div class="card-header">
+                        <div class="header-content">
+                            <ion-card-title>Signalements</ion-card-title>
+                            <ion-card-subtitle>Total</ion-card-subtitle>
+                        </div>
+                        <div class="card-icon">
+                            <ion-icon name="alert-circle-outline"></ion-icon>
+                        </div>
+                    </div>
+                    <ion-card-content>
+                        <h2 class="stat-number">{{ totalReports }}</h2>
+                        <ion-list class="status-list">
+                            <ion-item *ngFor="let s of byStatus" class="status-item">
+                                <ion-label class="status-label">{{ s._id || 'Inconnu' }}</ion-label>
+                                <ion-badge color="secondary" class="status-badge">{{ s.count }}</ion-badge>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+
+            <!-- Users Card -->
+            <ion-col size="16" sizeMd="4" class="stat-col">
+                <ion-card class="stat-card users-card">
+                    <div class="card-header">
+                        <div class="header-content">
+                            <ion-card-title>Utilisateurs</ion-card-title>
+                            <ion-card-subtitle>Statistiques</ion-card-subtitle>
+                        </div>
+                        <div class="card-icon">
+                            <ion-icon name="people-outline"></ion-icon>
+                        </div>
+                    </div>
+                    <ion-card-content>
+                        <h2 class="stat-number">{{ totalUsers }}</h2>
+                        <ion-list class="user-stats-list">
+                            <ion-item class="user-stat-item">
+                                <ion-label class="stat-label">Actifs</ion-label>
+                                <ion-badge color="success" class="stat-badge">{{ activeUsers }}</ion-badge>
+                            </ion-item>
+                            <ion-item class="user-stat-item">
+                                <ion-label class="stat-label">Inactifs</ion-label>
+                                <ion-badge color="medium" class="stat-badge">{{ inactiveUsers }}</ion-badge>
+                            </ion-item>
+                            
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+
+            <!-- Categories Card -->
+            <ion-col size="12" sizeMd="4" class="stat-col">
+                <ion-card class="stat-card categories-card">
+                    <div class="card-header">
+                        <div class="header-content">
+                            <ion-card-title>Par catégorie</ion-card-title>
+                            <ion-card-subtitle>Répartition</ion-card-subtitle>
+                        </div>
+                        <div class="card-icon">
+                            <ion-icon name="layers-outline"></ion-icon>
+                        </div>
+                    </div>
+                    <ion-card-content>
+                        <ion-list class="category-list">
+                            <ion-item *ngFor="let c of byCategory" class="category-item">
+                                <ion-label class="category-label">{{ c._id || 'Autre' }}</ion-label>
+                                <ion-badge color="tertiary" class="category-badge">{{ c.count }}</ion-badge>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+
+        <!-- Recent Reports Row -->
+        <ion-row class="recent-row">
+            <ion-col size="12">
+                <ion-card class="recent-card">
+                    <ion-card-header class="recent-header">
+                        <ion-card-title>Signalements récents</ion-card-title>
+                        <ion-icon name="trending-up-outline" class="trending-icon"></ion-icon>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <ion-list class="recent-list">
+                            <ion-item *ngFor="let r of recentReports; let i = index" 
+                                      button 
+                                      (click)="viewReportDetails(r._id)"
+                                      class="recent-item"
+                                      [style.animation-delay]="(i * 0.1) + 's'">
+                                <ion-avatar slot="start" *ngIf="r.imageUrl" class="report-avatar">
+                                    <img [src]="r.imageUrl" alt="image" />
+                                </ion-avatar>
+                                <div slot="start" *ngIf="!r.imageUrl" class="avatar-placeholder">
+                                    <ion-icon name="image-outline"></ion-icon>
+                                </div>
+                                <ion-label class="report-label">
+                                    <h3 class="report-title">{{ r.title }}</h3>
+                                    <p class="report-meta">{{ r.category }} • {{ r.status }} • par {{ r.createdBy?.name }}</p>
+                                </ion-label>
+                                <ion-icon slot="end" name="chevron-forward-outline" class="chevron-icon"></ion-icon>
+                            </ion-item>
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

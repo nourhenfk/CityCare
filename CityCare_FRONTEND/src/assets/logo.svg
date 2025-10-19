@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="cityGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2196F3;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- City buildings -->
+  <rect x="20" y="100" width="30" height="80" fill="url(#cityGradient)" rx="3"/>
+  <rect x="55" y="80" width="30" height="100" fill="url(#cityGradient)" rx="3"/>
+  <rect x="90" y="90" width="30" height="90" fill="url(#cityGradient)" rx="3"/>
+  <rect x="125" y="70" width="30" height="110" fill="url(#cityGradient)" rx="3"/>
+  <rect x="160" y="95" width="30" height="85" fill="url(#cityGradient)" rx="3"/>
+  
+  <!-- Heart/Care symbol in center -->
+  <circle cx="100" cy="60" r="45" fill="#fff" opacity="0.9"/>
+  <path d="M100 85 L85 70 Q80 65 80 58 Q80 48 88 48 Q95 48 100 55 Q105 48 112 48 Q120 48 120 58 Q120 65 115 70 Z" 
+        fill="#e91e63"/>
+  
+  <!-- Small windows on buildings -->
+  <rect x="27" y="110" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  <rect x="37" y="110" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  <rect x="27" y="125" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  <rect x="37" y="125" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  
+  <rect x="62" y="95" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  <rect x="72" y="95" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  <rect x="62" y="110" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  <rect x="72" y="110" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  
+  <rect x="167" y="105" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  <rect x="177" y="105" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  <rect x="167" y="120" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+  <rect x="177" y="120" width="8" height="8" fill="#fff" opacity="0.7" rx="1"/>
+</svg>
